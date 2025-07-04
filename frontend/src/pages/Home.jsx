@@ -1,9 +1,27 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 export default function Home() {
-  const [shortened, setShortened] = useState(false);
-  const [url, setUrl] = useState("");
+  const [shortened, setShortened] = useState({
+    longUrl: "",
+  });
+  const [redirectUrl, setRedirectUrl] = useState("");
+  const [showUrl, setShowUrl] = useState("");
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const data = await axios.post(
+        "http://localhost:6969/api/url/",
+        shortened
+      );
+      console.log(data);
+      setRedirectUrl(`http://localhost:6969${data.data.shortUrl}`);
+      setShowUrl(`http://localhost:6969${data.data.shortUrl}`);
+    } catch (error) {}
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient-move relative overflow-hidden">
@@ -11,7 +29,6 @@ export default function Home() {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="w-full h-full bg-gradient-to-tr from-indigo-400 via-fuchsia-500 to-pink-400 opacity-60 blur-2xl animate-gradient-move" />
       </div>
-
 
       <nav className="z-10 relative flex justify-between items-center px-8 py-6">
         <div className="text-2xl font-extrabold text-white drop-shadow-lg tracking-tight">
@@ -57,24 +74,39 @@ export default function Home() {
           <input
             type="text"
             placeholder="Paste your long URL here..."
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={shortened.longUrl}
+            onChange={(e) =>
+              setShortened({ ...setShortened, longUrl: e.target.value })
+            }
             className="px-4 py-3 rounded-lg shadow-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/80 text-gray-800 w-72 md:w-96 transition-all duration-200"
           />
           <Button
             size="lg"
             className="ml-0 md:ml-2 px-8 py-3 font-bold text-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-xl rounded-xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 hover:bg-gradient-to-l cursor-pointer"
-            onClick={() => setShortened(true)}
-            disabled={!url}
+            onClick={handleSubmit}
           >
             Shorten URL
           </Button>
+        </div>
+        <div>
+          <input
+            type="text"
+            value={showUrl}
+            placeholder="shortULR"
+            readOnly
+            onClick={() => {
+              navigator.clipboard.writeText(showUrl);
+              toast.success("Short URL copied to clipboard!");
+            }}
+            className="border w-56 h-7 rounded-lg mb-4 pl-1.5 pr-1.5 text-center"
+          ></input>
         </div>
         <div className="flex flex-col md:flex-row gap-6 mt-4">
           <Button
             size="lg"
             className="px-8 py-4 font-semibold text-lg bg-gradient-to-r from-green-400 to-blue-500 text-white shadow-xl rounded-2xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 hover:bg-gradient-to-l cursor-pointer"
-            disabled={!shortened}
+            disabled={!redirectUrl}
+            onClick={() => window.open(redirectUrl, "_blank")}
           >
             Redirect URL
           </Button>

@@ -5,20 +5,32 @@ import { Input } from "@/components/ui/input";
 // import { RadioGroup, RadioGroupItem } from "./radio-group";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [input, setInput] = useState({
-    emailId: "",
+    email: "",
     password: "",
   });
-  function handleLogin(e) {
-    e.preventDefault();
-    console.log("Email:", input.emailId);
-    console.log("Password:", input.password);
+  async function handleLogin(e) {
+    try {
+      e.preventDefault();
+      const data = await axios.post(
+        "http://localhost:6969/api/auth/login",
+        input
+      );
+      toast.success("Logged-IN");
+      navigate("/");
+      console.log(data);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   }
   return (
     <div>
-    
       <Navbar />
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
@@ -33,8 +45,8 @@ const Login = () => {
             <Input
               type="text"
               placeholder="Johndoe@gmail.com"
-              value={input.emailId}
-              onChange={(e) => setInput({ ...input, emailId: e.target.value })}
+              value={input.email}
+              onChange={(e) => setInput({ ...input, email: e.target.value })}
             ></Input>
           </div>
           <div className="my-2 ">
@@ -47,7 +59,6 @@ const Login = () => {
             ></Input>
           </div>
 
-        
           <Button className="block w-full mt-3 rounded-md text-white">
             Login
           </Button>
