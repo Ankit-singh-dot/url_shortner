@@ -36,6 +36,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signup = signup;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
+    console.log("login");
     const user = yield prisma.user.findUnique({ where: { email } });
     if (!user)
         return res.status(400).json({ message: "Invalid credentials" });

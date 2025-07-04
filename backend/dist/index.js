@@ -8,8 +8,13 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const url_1 = __importDefault(require("./routes/url"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)({
+    origin: "http://localhost:5173",
+    credentials: true,
+}));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 console.log("fgwhisohg");
