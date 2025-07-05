@@ -13,7 +13,8 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://url-shortner-alpha-eight.vercel.app", // Replace with your actual frontend domain
+  "https://shortyoururll.netlify.app",
+  "https://68690b70e6da370008151601--shortyoururll.netlify.app", // Replace with your actual frontend domain
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
