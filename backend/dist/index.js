@@ -11,11 +11,12 @@ const url_1 = __importDefault(require("./routes/url"));
 const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-// CORS configuration for production
+// CORS configuration for production and development
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://your-frontend-domain.vercel.app", // Replace with your actual frontend domain
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
     process.env.FRONTEND_URL
 ].filter(Boolean);
 app.use((0, cors_1.default)({
@@ -23,14 +24,21 @@ app.use((0, cors_1.default)({
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin)
             return callback(null, true);
+        // Allow all localhost origins for development
+        if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+            return callback(null, true);
+        }
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         }
         else {
+            console.log('CORS blocked origin:', origin);
             callback(new Error('Not allowed by CORS'));
         }
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
 }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
