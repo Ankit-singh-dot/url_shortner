@@ -21,7 +21,11 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
   });
 
   const token = createToken(user.id);
-  res.cookie("token", token, { httpOnly: true });
+  res.cookie("token", token, { 
+    httpOnly: true,
+    secure: false, // Set to false for localhost
+    sameSite: 'lax'
+  });
   res.json({ user: { id: user.id, email: user.email } });
 };
 
@@ -35,7 +39,11 @@ export const login = async (req: Request, res: Response): Promise<any> => {
   if (!match) return res.status(400).json({ message: "Invalid credentials" });
 
   const token = createToken(user.id);
-  res.cookie("token", token, { httpOnly: true });
+  res.cookie("token", token, { 
+    httpOnly: true,
+    secure: false, // Set to false for localhost
+    sameSite: 'lax'
+  });
   res.json({ user: { id: user.id, email: user.email } });
 };
 
