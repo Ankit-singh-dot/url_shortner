@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { API_ENDPOINTS } from "../config/api";
 
 axios.defaults.withCredentials = true;
 
@@ -18,12 +17,12 @@ export default function Home() {
     try {
       e.preventDefault();
       const data = await axios.post(
-        "http://localhost:6969/api/url/",
+        "https://url-shortner-rho-one.vercel.app/api/url/",
         shortened
       );
       console.log(data);
-      setRedirectUrl(`http://localhost:6969${data.data.shortUrl}`);
-      setShowUrl(`http://localhost:6969${data.data.shortUrl}`);
+      setRedirectUrl(`https://url-shortner-rho-one.vercel.app${data.data.shortUrl}`);
+      setShowUrl(`https://url-shortner-rho-one.vercel.app${data.data.shortUrl}`);
     } catch (error) {
       console.error('Error:', error);
       toast.error("Failed to shorten URL. Please try again.");

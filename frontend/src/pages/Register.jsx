@@ -19,7 +19,7 @@ const Register = () => {
   const changeEventHandler = async (e) => {
     try {
       e.preventDefault();
-      const data = await axios.post("http://localhost:6969/api/auth/signup", input);
+      const data = await axios.post("https://url-shortner-rho-one.vercel.app/api/auth/signup", input);
       toast.success("Account created Successfully");
       console.log(data);
     } catch (error) {

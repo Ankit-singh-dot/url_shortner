@@ -20,7 +20,7 @@ const Login = () => {
   async function handleLogin(e) {
     try {
       e.preventDefault();
-      const data = await axios.post("http://localhost:6969/api/auth/login", input);
+      const data = await axios.post("https://url-shortner-rho-one.vercel.app/api/auth/login", input);
       toast.success("Logged-IN");
       navigate("/");
       console.log(data);

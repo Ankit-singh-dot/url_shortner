@@ -14,7 +14,7 @@ export default function AllUrls() {
     const getMyUrls = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:6969/api/url/me");
+        const response = await axios.get("https://url-shortner-rho-one.vercel.app/api/url/me");
         const urlData = response.data;
 
         const transformedUrls = urlData.map((url, index) => {
@@ -34,7 +34,7 @@ export default function AllUrls() {
           return {
             id: url.id,
             originalUrl: url.longUrl || "No URL provided",
-            shortUrl: `http://localhost:6969/api/url/${url.shortCode}`,
+            shortUrl: `https://url-shortner-rho-one.vercel.app/api/url/${url.shortCode}`,
             createdAt: new Date(url.createdAt).toLocaleDateString(),
             clicks: 0, // You can add this field to your API if needed
             title: title,
