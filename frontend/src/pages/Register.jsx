@@ -7,25 +7,25 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { API_ENDPOINTS } from "../config/api";
 
 const Register = () => {
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
+
   const changeEventHandler = async (e) => {
     try {
       e.preventDefault();
-      const data = await axios.post(
-        "http://localhost:6969/api/auth/signup",
-        input
-      );
+      const data = await axios.post(API_ENDPOINTS.SIGNUP, input);
       toast.success("Account created Successfully");
       console.log(data);
     } catch (error) {
-      toast.error("Something went wrong!!!")
+      toast.error("Failed to create account. Please try again.");
     }
   };
+
   return (
     <div>
       <Navbar />

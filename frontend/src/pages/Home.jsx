@@ -3,25 +3,27 @@ import toast from "react-hot-toast";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/api";
+
 axios.defaults.withCredentials = true;
+
 export default function Home() {
-  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [shortened, setShortened] = useState({
     longUrl: "",
   });
   const [redirectUrl, setRedirectUrl] = useState("");
   const [showUrl, setShowUrl] = useState("");
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const data = await axios.post(
-        "http://localhost:6969/api/url/",
-        shortened
-      );
+      const data = await axios.post(API_ENDPOINTS.CREATE_URL, shortened);
       console.log(data);
-      setRedirectUrl(`http://localhost:6969${data.data.shortUrl}`);
-      setShowUrl(`${BASE_URL}${data.data.shortUrl}`);
-    } catch (error) {}
+      setRedirectUrl(`${API_ENDPOINTS.REDIRECT_URL(data.data.shortUrl.split('/').pop())}`);
+      setShowUrl(data.data.shortUrl);
+    } catch (error) {
+      toast.error("Failed to shorten URL. Please try again.");
+    }
   };
 
   return (
