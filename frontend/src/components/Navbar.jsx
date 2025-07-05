@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import { LogOut, User2 } from "lucide-react";
-const Navbar = () => {
+
+export default function Navbar() {
   const user = false;
   return (
     <div className="bg-white ">
@@ -89,6 +90,4 @@ const Navbar = () => {
       </div>
     </div>
   );
-};
-
-export default Navbar;
+}

@@ -31,7 +31,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient-move relative overflow-hidden">
-      {/* Animated Gradient Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="w-full h-full bg-gradient-to-tr from-indigo-400 via-fuchsia-500 to-pink-400 opacity-60 blur-2xl animate-gradient-move" />
       </div>
@@ -64,7 +63,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <main className="z-10 relative flex flex-1 flex-col items-center justify-center text-center px-4">
         <h1 className="text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg mb-4">
           Shorten, Share,{" "}
@@ -127,7 +125,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Custom CSS for animated gradient */}
       <style>{`
         @keyframes gradient-move {
           0% { background-position: 0% 50%; }

@@ -36,7 +36,7 @@ export default function AllUrls() {
             originalUrl: url.longUrl || "No URL provided",
             shortUrl: `https://url-shortner-rho-one.vercel.app/api/url/${url.shortCode}`,
             createdAt: new Date(url.createdAt).toLocaleDateString(),
-            clicks: 0, // You can add this field to your API if needed
+            clicks: 0,
             title: title,
             shortCode: url.shortCode,
           };
@@ -67,7 +67,6 @@ export default function AllUrls() {
         <div className="w-full h-full bg-gradient-to-tr from-indigo-400 via-fuchsia-500 to-pink-400 opacity-60 blur-2xl animate-gradient-move" />
       </div>
 
-
       <nav className="z-10 relative flex justify-between items-center px-8 py-6">
         <div className="text-2xl font-extrabold text-white drop-shadow-lg tracking-tight">
           URL Shortener
@@ -92,7 +91,6 @@ export default function AllUrls() {
         </div>
       </nav>
 
-
       <main className="z-10 relative px-8 py-6">
         <div className="max-w-6xl mx-auto">
 
@@ -107,7 +105,6 @@ export default function AllUrls() {
               Manage and track all your shortened URLs in one place
             </p>
           </div>
-
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-xl hover:scale-105 transition-all duration-300">
@@ -135,14 +132,12 @@ export default function AllUrls() {
             </div>
           </div>
 
-
           {loading && (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
               <p className="text-white/70">Loading your URLs...</p>
             </div>
           )}
-
 
           {!loading && (
             <div className="space-y-6">
@@ -188,7 +183,6 @@ export default function AllUrls() {
                         </div>
                       </div>
 
-
                       <div className="flex items-center gap-6 mt-4 text-sm text-white/70">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
@@ -200,7 +194,6 @@ export default function AllUrls() {
                         </div>
                       </div>
                     </div>
-
 
                     <div className="flex items-center gap-3">
                       <Button
@@ -239,7 +232,6 @@ export default function AllUrls() {
             </div>
           )}
 
-
           {!loading && urls.length === 0 && (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">🔗</div>
@@ -258,7 +250,6 @@ export default function AllUrls() {
           )}
         </div>
       </main>
-
 
       <style>{`
         @keyframes gradient-move {

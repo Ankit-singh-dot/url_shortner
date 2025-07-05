@@ -1,21 +1,20 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
-import AllUrls from "./pages/Allurl";
+import Allurl from "./pages/Allurl";
+import "./App.css";
 
-const appRouter = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
-  { path: "/getAllUrl", element: <AllUrls /> },
-]);
 function App() {
   return (
-    <>
-      <RouterProvider router={appRouter}></RouterProvider>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/getAllUrl" element={<Allurl />} />
+      </Routes>
+    </Router>
   );
 }
 

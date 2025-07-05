@@ -1,75 +1,151 @@
 import React, { useState } from "react";
-import Navbar from "@/components/Navbar";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Button } from "../components/ui/button";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const Register = () => {
-  const [input, setInput] = useState({
+export default function Register() {
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
-  const changeEventHandler = async (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      const data = await axios.post("https://url-shortner-rho-one.vercel.app/api/auth/signup", input);
-      toast.success("Account created Successfully");
-      console.log(data);
+      const response = await axios.post(
+        "https://url-shortner-rho-one.vercel.app/api/auth/signup",
+        formData
+      );
+      console.log(response.data);
+      toast.success("Registration successful!");
+      navigate("/");
     } catch (error) {
-      toast.error("Something went wrong!!!")
+      console.error("Registration error:", error);
+      toast.error(error.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="flex items-center justify-center max-w-7xl mx-auto">
-        <form
-          onSubmit={changeEventHandler}
-          action=""
-          className="w-1/2 border border-red-900 rounded-xl p-4 my-10"
-        >
-          <h1 className="font-bold text-xl mb-5 text-center">Register</h1>
-
-          <div className="my-2 ">
-            <Label className="mb-1">Email</Label>
-            <Input
-              type="text"
-              placeholder="Johndoe@gmail.com"
-              value={input.emailId}
-              onChange={(e) => setInput({ ...input, email: e.target.value })}
-            ></Input>
-          </div>
-          <div className="my-2 ">
-            <Label className="mb-1">Password</Label>
-            <Input
-              type="Password"
-              placeholder="**********"
-              value={input.password}
-              onChange={(e) => setInput({ ...input, password: e.target.value })}
-            ></Input>
-          </div>
-
-          <Button className="block w-full mt-3 rounded-md text-white">
-            Submit
-          </Button>
-          <p className="mt-2 text-red-800">
-            Already have an account ?{" "}
-            <Link className="text-black" to={"/login"}>
-              Login
-            </Link>
-          </p>
-        </form>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient-move relative overflow-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="w-full h-full bg-gradient-to-tr from-indigo-400 via-fuchsia-500 to-pink-400 opacity-60 blur-2xl animate-gradient-move" />
       </div>
+
+      <nav className="z-10 relative flex justify-between items-center px-8 py-6">
+        <div className="text-2xl font-extrabold text-white drop-shadow-lg tracking-tight">
+          URL Shortener
+        </div>
+        <div className="flex gap-4">
+          <Link to="/">
+            <Button
+              variant="outline"
+              className="transition-all duration-200 hover:scale-105 hover:bg-white hover:text-indigo-600 shadow-md"
+            >
+              Home
+            </Button>
+          </Link>
+          <Link to="/login">
+            <Button
+              variant="default"
+              className="transition-all duration-200 hover:scale-105 hover:bg-indigo-600 hover:text-white shadow-lg"
+            >
+              Login
+            </Button>
+          </Link>
+        </div>
+      </nav>
+
+      <main className="z-10 relative flex flex-1 items-center justify-center px-4">
+        <div className="w-full max-w-md">
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-white mb-2">
+                Create Account
+              </h1>
+              <p className="text-white/70">
+                Join us and start shortening URLs today
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-white mb-2"
+                >
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-200"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-white mb-2"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-200"
+                  placeholder="Create a password"
+                  required
+                />
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full py-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"
+              >
+                Create Account
+              </Button>
+            </form>
+
+            <div className="mt-6 text-center">
+              <p className="text-white/70">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="text-indigo-300 hover:text-indigo-200 font-medium transition-colors duration-200"
+                >
+                  Sign in here
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <style>{`
+        @keyframes gradient-move {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-move {
+          background-size: 200% 200%;
+          animation: gradient-move 8s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
-};
-
-export default Register;
+}
