@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 export default function Home() {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [shortened, setShortened] = useState({
     longUrl: "",
   });
@@ -19,7 +20,7 @@ export default function Home() {
       );
       console.log(data);
       setRedirectUrl(`http://localhost:6969${data.data.shortUrl}`);
-      setShowUrl(`http://localhost:6969${data.data.shortUrl}`);
+      setShowUrl(`${BASE_URL}${data.data.shortUrl}`);
     } catch (error) {}
   };
 
@@ -111,6 +112,7 @@ export default function Home() {
             Redirect URL
           </Button>
           <Button
+          
             size="lg"
             className="px-8 py-4 font-semibold text-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white shadow-xl rounded-2xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 hover:bg-gradient-to-l cursor-pointer"
           >

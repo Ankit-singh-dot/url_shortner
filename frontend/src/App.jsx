@@ -3,11 +3,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import AllUrls from "./pages/Allurl";
 
 const appRouter = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
+  { path: "/getAllUrl", element: <AllUrls /> },
 ]);
 function App() {
   return (
