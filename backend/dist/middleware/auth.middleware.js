@@ -17,27 +17,18 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Auth middleware - cookies:', req.cookies);
-    console.log('Auth middleware - headers:', req.headers.cookie);
     const token = req.cookies.token;
-    if (!token) {
-        console.log('No token found in cookies');
+    if (!token)
         return res.status(401).json({ message: "Unauthorized" });
-    }
     try {
         const payload = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
-        console.log('Token verified, user ID:', payload.id);
         const user = yield prisma.user.findUnique({ where: { id: payload.id } });
-        if (!user) {
-            console.log('User not found in database');
+        if (!user)
             return res.status(401).json({ message: "Unauthorized" });
-        }
-        console.log('User authenticated:', user.email);
         req.user = user;
         next();
     }
-    catch (error) {
-        console.log('Token verification failed:', error);
+    catch (_a) {
         res.status(401).json({ message: "Invalid token" });
     }
 });

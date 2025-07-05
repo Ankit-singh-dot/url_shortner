@@ -23,8 +23,9 @@ export const signup = async (req: Request, res: Response): Promise<any> => {
   const token = createToken(user.id);
   res.cookie("token", token, { 
     httpOnly: true,
-    secure: false, // Set to false for localhost
-    sameSite: 'lax'
+    secure: true, // Required for HTTPS
+    sameSite: 'none', // Required for cross-origin
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
   });
   res.json({ user: { id: user.id, email: user.email } });
 };
@@ -41,8 +42,9 @@ export const login = async (req: Request, res: Response): Promise<any> => {
   const token = createToken(user.id);
   res.cookie("token", token, { 
     httpOnly: true,
-    secure: false, // Set to false for localhost
-    sameSite: 'lax'
+    secure: true, // Required for HTTPS
+    sameSite: 'none', // Required for cross-origin
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
   });
   res.json({ user: { id: user.id, email: user.email } });
 };

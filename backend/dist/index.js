@@ -16,7 +16,7 @@ const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:3000",
     "https://shortyoururll.netlify.app",
-    "https://68690b70e6da370008151601--shortyoururll.netlify.app", // Replace with your actual frontend domain
+    "https://68690b70e6da370008151601--shortyoururll.netlify.app",
     process.env.FRONTEND_URL,
 ].filter(Boolean);
 app.use((0, cors_1.default)({
@@ -28,10 +28,13 @@ app.use((0, cors_1.default)({
             callback(null, true);
         }
         else {
+            console.log('CORS blocked origin:', origin);
             callback(new Error("Not allowed by CORS"));
         }
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
 }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
@@ -39,6 +42,7 @@ app.use((0, cookie_parser_1.default)());
 app.get("/health", (req, res) => {
     res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
+console.log("fgwhisohg");
 app.use("/api/auth", auth_1.default);
 app.use("/api/url", url_1.default);
 const PORT = process.env.PORT || 4000;
