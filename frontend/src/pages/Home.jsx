@@ -19,7 +19,9 @@ export default function Home() {
       e.preventDefault();
       const data = await axios.post(API_ENDPOINTS.CREATE_URL, shortened);
       console.log(data);
-      setRedirectUrl(`${API_ENDPOINTS.REDIRECT_URL(data.data.shortUrl.split('/').pop())}`);
+      setRedirectUrl(
+        `${API_ENDPOINTS.REDIRECT_URL(data.data.shortUrl.split("/").pop())}`
+      );
       setShowUrl(data.data.shortUrl);
     } catch (error) {
       toast.error("Failed to shorten URL. Please try again.");
@@ -113,13 +115,14 @@ export default function Home() {
           >
             Redirect URL
           </Button>
-          <Button
-          
-            size="lg"
-            className="px-8 py-4 font-semibold text-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white shadow-xl rounded-2xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 hover:bg-gradient-to-l cursor-pointer"
-          >
-            Get All My URLs
-          </Button>
+          <Link to={"/getAllUrl"}>
+            <Button
+              size="lg"
+              className="px-8 py-4 font-semibold text-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white shadow-xl rounded-2xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 hover:bg-gradient-to-l cursor-pointer"
+            >
+              Get All My URLs
+            </Button>
+          </Link>
         </div>
       </main>
 

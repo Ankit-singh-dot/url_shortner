@@ -1,5 +1,5 @@
 // API Configuration
-export const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:6969';
+export const API_BASE_URL =  'http://localhost:6969';
 
 // API Endpoints
 export const API_ENDPOINTS = {
