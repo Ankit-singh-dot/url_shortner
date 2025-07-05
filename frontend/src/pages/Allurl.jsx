@@ -62,12 +62,12 @@ export default function AllUrls() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient-move relative overflow-hidden">
+    <div className="min-h-screen w-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient-move relative overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="w-full h-full bg-gradient-to-tr from-indigo-400 via-fuchsia-500 to-pink-400 opacity-60 blur-2xl animate-gradient-move" />
       </div>
 
-      <nav className="z-10 relative flex justify-between items-center px-8 py-6">
+      <nav className="z-10 relative flex justify-between items-center px-8 py-6 w-full">
         <div className="text-2xl font-extrabold text-white drop-shadow-lg tracking-tight">
           URL Shortener
         </div>
@@ -91,8 +91,8 @@ export default function AllUrls() {
         </div>
       </nav>
 
-      <main className="z-10 relative px-8 py-6">
-        <div className="max-w-6xl mx-auto">
+      <main className="z-10 relative px-8 py-6 w-full min-h-[calc(100vh-120px)]">
+        <div className="max-w-7xl mx-auto">
 
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-4">

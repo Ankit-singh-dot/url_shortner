@@ -30,12 +30,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient-move relative overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 animate-gradient-move relative overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="w-full h-full bg-gradient-to-tr from-indigo-400 via-fuchsia-500 to-pink-400 opacity-60 blur-2xl animate-gradient-move" />
       </div>
 
-      <nav className="z-10 relative flex justify-between items-center px-8 py-6">
+      <nav className="z-10 relative flex justify-between items-center px-8 py-6 w-full">
         <div className="text-2xl font-extrabold text-white drop-shadow-lg tracking-tight">
           URL Shortener
         </div>
@@ -63,7 +63,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="z-10 relative flex flex-1 flex-col items-center justify-center text-center px-4">
+      <main className="z-10 relative flex flex-1 flex-col items-center justify-center text-center px-4 w-full">
         <h1 className="text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg mb-4">
           Shorten, Share,{" "}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-pink-400 to-indigo-400 animate-gradient-move">
@@ -74,7 +74,7 @@ export default function Home() {
           Instantly turn long links into short, memorable URLs. Fast, secure,
           and easy to use.
         </p>
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-12">
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-12 w-full max-w-2xl">
           <input
             type="text"
             placeholder="Paste your long URL here..."
@@ -82,7 +82,7 @@ export default function Home() {
             onChange={(e) =>
               setShortened({ ...setShortened, longUrl: e.target.value })
             }
-            className="px-4 py-3 rounded-lg shadow-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/80 text-gray-800 w-72 md:w-96 transition-all duration-200"
+            className="px-4 py-3 rounded-lg shadow-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/80 text-gray-800 w-full md:w-96 transition-all duration-200"
           />
           <Button
             size="lg"
@@ -92,20 +92,22 @@ export default function Home() {
             Shorten URL
           </Button>
         </div>
-        <div>
-          <input
-            type="text"
-            value={showUrl}
-            placeholder="shortULR"
-            readOnly
-            onClick={() => {
-              navigator.clipboard.writeText(showUrl);
-              toast.success("Short URL copied to clipboard!");
-            }}
-            className="border w-56 h-7 rounded-lg mb-4 pl-1.5 pr-1.5 text-center"
-          ></input>
-        </div>
-        <div className="flex flex-col md:flex-row gap-6 mt-4">
+        {showUrl && (
+          <div className="mb-8 w-full max-w-2xl">
+            <input
+              type="text"
+              value={showUrl}
+              placeholder="shortULR"
+              readOnly
+              onClick={() => {
+                navigator.clipboard.writeText(showUrl);
+                toast.success("Short URL copied to clipboard!");
+              }}
+              className="border w-full h-12 rounded-lg pl-4 pr-4 text-center bg-white/90 text-gray-800 cursor-pointer hover:bg-white transition-all duration-200"
+            />
+          </div>
+        )}
+        <div className="flex flex-col md:flex-row gap-6 mt-4 w-full max-w-2xl justify-center">
           <Button
             size="lg"
             className="px-8 py-4 font-semibold text-lg bg-gradient-to-r from-green-400 to-blue-500 text-white shadow-xl rounded-2xl transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 hover:bg-gradient-to-l cursor-pointer"
