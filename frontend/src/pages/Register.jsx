@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { API_ENDPOINTS } from "../config/api";
+
+axios.defaults.withCredentials = true;
 
 const Register = () => {
   const [input, setInput] = useState({
@@ -18,11 +19,11 @@ const Register = () => {
   const changeEventHandler = async (e) => {
     try {
       e.preventDefault();
-      const data = await axios.post(API_ENDPOINTS.SIGNUP, input);
+      const data = await axios.post("http://localhost:6969/api/auth/signup", input);
       toast.success("Account created Successfully");
       console.log(data);
     } catch (error) {
-      toast.error("Failed to create account. Please try again.");
+      toast.error("Something went wrong!!!")
     }
   };
 

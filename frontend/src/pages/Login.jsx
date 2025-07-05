@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { API_ENDPOINTS } from "../config/api";
+
+axios.defaults.withCredentials = true;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Login = () => {
   async function handleLogin(e) {
     try {
       e.preventDefault();
-      const data = await axios.post(API_ENDPOINTS.LOGIN, input);
+      const data = await axios.post("http://localhost:6969/api/auth/login", input);
       toast.success("Logged-IN");
       navigate("/");
       console.log(data);

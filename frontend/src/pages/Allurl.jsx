@@ -3,7 +3,6 @@ import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 import { Copy, ExternalLink, Trash2, Calendar, Clock } from "lucide-react";
 import axios from "axios";
-import { API_ENDPOINTS } from "../config/api";
 
 axios.defaults.withCredentials = true;
 
@@ -15,7 +14,7 @@ export default function AllUrls() {
     const getMyUrls = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(API_ENDPOINTS.GET_MY_URLS);
+        const response = await axios.get("http://localhost:6969/api/url/me");
         const urlData = response.data;
 
         const transformedUrls = urlData.map((url, index) => {
@@ -35,7 +34,7 @@ export default function AllUrls() {
           return {
             id: url.id,
             originalUrl: url.longUrl || "No URL provided",
-            shortUrl: API_ENDPOINTS.REDIRECT_URL(url.shortCode),
+            shortUrl: `http://localhost:6969/api/url/${url.shortCode}`,
             createdAt: new Date(url.createdAt).toLocaleDateString(),
             clicks: 0, // You can add this field to your API if needed
             title: title,

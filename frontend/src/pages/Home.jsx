@@ -17,13 +17,15 @@ export default function Home() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const data = await axios.post(API_ENDPOINTS.CREATE_URL, shortened);
-      console.log(data);
-      setRedirectUrl(
-        `${API_ENDPOINTS.REDIRECT_URL(data.data.shortUrl.split("/").pop())}`
+      const data = await axios.post(
+        "http://localhost:6969/api/url/",
+        shortened
       );
-      setShowUrl(data.data.shortUrl);
+      console.log(data);
+      setRedirectUrl(`http://localhost:6969${data.data.shortUrl}`);
+      setShowUrl(`http://localhost:6969${data.data.shortUrl}`);
     } catch (error) {
+      console.error('Error:', error);
       toast.error("Failed to shorten URL. Please try again.");
     }
   };
