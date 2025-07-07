@@ -10,7 +10,7 @@ const MousePointer = () => {
       <motion.div
         className="w-5 h-5 bg-black fixed rounded-full pointer-events-none z-[9999]"
         animate={{ x: x - 10, y: y - 10 }}
-        transition={{ type: "spring", stiffness: 500, damping: 50 }}
+        transition={{ type: "spring", stiffness: 300, damping: 40}}
       >
     
       </motion.div>
